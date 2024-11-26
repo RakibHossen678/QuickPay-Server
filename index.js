@@ -40,9 +40,13 @@ async function run() {
       const email = info.email;
       const query = { email: email };
       const isExist = await usersCollection.findOne(query);
-      console.log(isExist);
       if (isExist) return;
       const result = await usersCollection.insertOne(info);
+      res.send(result);
+    });
+
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
       res.send(result);
     });
 
